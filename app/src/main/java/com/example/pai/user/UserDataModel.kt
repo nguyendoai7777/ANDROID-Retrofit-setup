@@ -6,3 +6,11 @@ data class User(
     val avatar: String,
     val id: String,
 )
+
+data class UserInfo(
+    val firstName: String,
+    val id: String,
+    val lastName: String,
+    val dob: String,
+    val gender: String,
+)

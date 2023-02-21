@@ -8,6 +8,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
 import com.example.pai.ui.theme.PAITheme
+import com.example.pai.user.UserInfo
 import com.example.pai.user.UserView
 
 

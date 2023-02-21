@@ -1,10 +1,11 @@
 package com.example.pai.configurations.network
 
 import com.example.pai.configurations.Constant.Companion.BASE_URL
+import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object Retrofit {
-    var retrofit = retrofit2.Retrofit.Builder()
+     var retrofit: Retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
         .build()

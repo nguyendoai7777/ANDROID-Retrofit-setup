@@ -2,10 +2,13 @@ package com.example.pai.user
 
 import android.annotation.SuppressLint
 import android.util.Log
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Button
+import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
+import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 
 
@@ -30,6 +33,15 @@ fun UserList(
             Button(onClick = retry) {
                 Text(text = "reload")
             }
+        }
+        item {
+            Divider(modifier = Modifier.fillMaxWidth())
+        }
+        item {
+            UserInfo()
+        }
+        item {
+            Divider(modifier = Modifier.fillMaxWidth())
         }
         users.forEach {
             item {

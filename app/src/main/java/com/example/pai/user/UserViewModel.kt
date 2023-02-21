@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.pai.configurations.network.Retrofit
+import com.example.pai.configurations.service.BaseUiState
 import kotlinx.coroutines.launch
 import java.io.IOException
 
@@ -18,9 +19,23 @@ sealed interface UserUiState {
     object Loading : UserUiState
 }
 
+sealed interface UserInfoUiState {
+    data class Success(val users: UserInfo) : UserInfoUiState
+    object Error : UserInfoUiState
+    object Loading : UserInfoUiState
+}
+
+typealias UserState = BaseUiState
+
 class UserViewModel: ViewModel() {
     private var userService = Retrofit.getService<UserService>()
     var userUiState: UserUiState by mutableStateOf(UserUiState.Loading)
+        private set
+
+    var userInfoUiState: BaseUiState by mutableStateOf(BaseUiState.Loading)
+        private set
+
+    var v: BaseUiState by mutableStateOf(BaseUiState.Loading)
         private set
 
     fun getUserList() {
@@ -34,8 +49,21 @@ class UserViewModel: ViewModel() {
         }
     }
 
+    fun getUserInfo() {
+        viewModelScope.launch {
+            userInfoUiState = BaseUiState.Loading
+            userInfoUiState = try {
+                BaseUiState.Success(userService.getUserSettings("1"))
+            } catch (e: IOException) {
+                BaseUiState.Error
+            }
+        }
+    }
+
+
     init {
         getUserList()
+        getUserInfo()
     }
 
     companion object {
